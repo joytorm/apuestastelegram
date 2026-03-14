@@ -25,11 +25,11 @@
     {
       "id": "F-300",
       "title": "Calidad y publicación",
-      "status": "todo",
+      "status": "in_progress",
       "tasks": [
-        {"id": "F-301", "title": "Build local", "status": "todo"},
-        {"id": "F-302", "title": "Deploy Vercel", "status": "todo"},
-        {"id": "F-303", "title": "Dominio temporal", "status": "todo"}
+        {"id": "F-301", "title": "Build local", "status": "done"},
+        {"id": "F-302", "title": "Deploy Cloudflare Pages", "status": "done"},
+        {"id": "F-303", "title": "Dominio temporal", "status": "in_progress", "notes": "Custom domain agregado, verificación Pages pendiente"}
       ]
     }
   ]

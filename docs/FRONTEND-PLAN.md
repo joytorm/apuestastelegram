@@ -47,6 +47,6 @@ Lanzar una landing sólida en Next.js con base SEO técnica y UX clara para adqu
 - F-202 ✅
 - F-203 ✅
 - F-204 ✅
-- F-301 ⏳
-- F-302 ⏳
-- F-303 ⏳
+- F-301 ✅
+- F-302 ✅
+- F-303 ⏳ (Cloudflare custom domain en verificación)
