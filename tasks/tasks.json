@@ -1,6 +1,6 @@
 {
   "project": "apuestastelegram",
-  "updatedAt": "2026-03-14T14:43:00Z",
+  "updatedAt": "2026-03-14T14:47:00Z",
   "status": "active",
   "tasks": [
     {
@@ -56,6 +56,14 @@
       "priority": "high",
       "owner": "gloria",
       "notes": "Copiado en /backend desde ~/Projects/entrelanzados/boilerplate-dashboard (sin .git, sin node_modules, sin .env.local, sin .next)"
+    },
+    {
+      "id": "AT-008",
+      "title": "Crear rutas API base en backend",
+      "status": "done",
+      "priority": "high",
+      "owner": "gloria",
+      "notes": "Rutas creadas: /api/health, /api/tips, /api/tipsters, /api/webhooks"
     }
   ]
 }
