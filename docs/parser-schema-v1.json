@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://apuestastelegram.local/schemas/parser-schema-v1.json",
+  "title": "Tip Parseado v1",
+  "description": "Esquema MVP para validar tips parseados desde fuentes externas.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "sport",
+    "event",
+    "market_type",
+    "selection",
+    "odds",
+    "stake",
+    "tipster_source",
+    "source_timestamp"
+  ],
+  "properties": {
+    "sport": {
+      "type": "string",
+      "description": "Deporte detectado.",
+      "enum": ["football", "basketball", "tennis", "baseball", "mma", "esports"]
+    },
+    "event": {
+      "type": "string",
+      "description": "Partido/evento en formato legible.",
+      "minLength": 3,
+      "maxLength": 200,
+      "examples": ["Real Madrid vs Barcelona"]
+    },
+    "market_type": {
+      "type": "string",
+      "description": "Tipo de mercado normalizado.",
+      "enum": [
+        "1x2",
+        "double_chance",
+        "draw_no_bet",
+        "over_under",
+        "asian_handicap",
+        "european_handicap",
+        "both_teams_to_score",
+        "moneyline"
+      ]
+    },
+    "selection": {
+      "type": "string",
+      "description": "Selección concreta dentro del mercado.",
+      "minLength": 1,
+      "maxLength": 120,
+      "examples": ["Real Madrid", "Over 2.5", "Inter -0.5"]
+    },
+    "odds": {
+      "type": "number",
+      "description": "Cuota decimal.",
+      "exclusiveMinimum": 1,
+      "maximum": 1000
+    },
+    "stake": {
+      "type": "number",
+      "description": "Stake recomendado (escala 1-10).",
+      "minimum": 0.1,
+      "maximum": 10
+    },
+    "tipster_source": {
+      "type": "string",
+      "description": "Origen del tip (canal, usuario o fuente).",
+      "minLength": 1,
+      "maxLength": 120,
+      "examples": ["@tipsterpro"]
+    },
+    "source_timestamp": {
+      "type": "string",
+      "description": "Fecha/hora original del tip en ISO 8601.",
+      "format": "date-time",
+      "examples": ["2026-03-14T09:30:00Z"]
+    },
+    "parse_confidence": {
+      "type": "number",
+      "description": "Confianza del parser (0 a 1).",
+      "minimum": 0,
+      "maximum": 1,
+      "examples": [0.92]
+    },
+    "notes": {
+      "type": "string",
+      "description": "Notas opcionales del parser.",
+      "maxLength": 500
+    }
+  }
+}

@@ -1,6 +1,6 @@
 {
   "project": "apuestastelegram",
-  "updatedAt": "2026-03-14T09:27:00Z",
+  "updatedAt": "2026-03-14T09:30:00Z",
   "status": "active",
   "tasks": [
     {
@@ -13,7 +13,7 @@
     {
       "id": "AT-002",
       "title": "Montar ingesta Telegram con Hydrogram",
-      "status": "todo",
+      "status": "in_progress",
       "priority": "high",
       "owner": "gloria"
     },
