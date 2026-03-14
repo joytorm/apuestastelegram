@@ -1,6 +1,6 @@
 {
   "project": "apuestastelegram",
-  "updatedAt": "2026-03-14T10:22:00Z",
+  "updatedAt": "2026-03-14T10:27:00Z",
   "status": "active",
   "tasks": [
     {
@@ -32,7 +32,7 @@
       "status": "in_progress",
       "priority": "high",
       "owner": "gloria",
-      "notes": "Diseño y contrato v1 documentados; pendiente implementación directa en n8n"
+      "notes": "Diseño y contrato v1 documentados + workflow draft creado en n8n (id: oJlsTl8Oo8SaOe06, inactive). Pendiente conectar nodos reales OpenAI/Claude + Supabase"
     },
     {
       "id": "AT-005",

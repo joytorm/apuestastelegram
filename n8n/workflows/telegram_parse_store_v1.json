@@ -1,0 +1,167 @@
+{
+  "name": "ApuestasTelegram - Parse Store v1",
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "nodes": [
+    {
+      "id": "1",
+      "name": "Webhook In",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [200, 300],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "telegram-parse-store-v1",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "2",
+      "name": "Normalize Input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [440, 300],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const payload = $json;\nconst message = payload.message || {};\nconst chat = payload.chat || {};\n\nconst text = String(message.text || '').trim();\nconst hasMedia = Boolean(message.has_media);\nif (!text && !hasMedia) {\n  return [];\n}\n\nconst source_channel_id = String(chat.id ?? '');\nconst source_message_id = String(message.id ?? '');\nconst source_content_hash = `${source_channel_id}:${source_message_id}:${text.slice(0,120)}`;\n\nreturn [{\n  ...payload,\n  normalized: {\n    source_type: 'telegram',\n    source_channel_id,\n    source_channel_name: chat.title || chat.username || null,\n    source_message_id,\n    source_timestamp: message.date_utc || null,\n    source_content_type: hasMedia ? (message.media_type === 'photo' ? 'image' : 'mixed') : 'text',\n    source_raw_text: text,\n    source_raw_payload: payload,\n    source_content_hash\n  }\n}];"
+      }
+    },
+    {
+      "id": "3",
+      "name": "Dedupe Placeholder",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 300],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// TODO: reemplazar por query real a Supabase (tips por source_channel_id + source_message_id)\nreturn items.map(item => ({ json: { ...item.json, is_duplicate: false } }));"
+      }
+    },
+    {
+      "id": "4",
+      "name": "Is Duplicate?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [900, 300],
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json.is_duplicate}}",
+              "operation": "isTrue"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "5",
+      "name": "Route Parser",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [1120, 420],
+      "parameters": {
+        "mode": "expression",
+        "output": "={{$json.message?.has_media ? 'media' : 'text'}}",
+        "rules": [
+          { "operation": "equal", "value": "text" },
+          { "operation": "equal", "value": "media" }
+        ],
+        "fallbackOutput": 2
+      }
+    },
+    {
+      "id": "6",
+      "name": "Parse Text Placeholder",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1350, 340],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// TODO: reemplazar por OpenAI node (response_format JSON Schema)\nreturn items.map(item => ({ json: { ...item.json, parsed: {\n  sport: 'football',\n  event: 'Real Madrid vs Barcelona',\n  market_type: '1x2',\n  selection: 'Real Madrid',\n  odds: 1.85,\n  stake: 3,\n  tipster_source: item.json.normalized?.source_channel_name || 'telegram',\n  source_timestamp: item.json.normalized?.source_timestamp,\n  parse_confidence: 0.75\n} } }));"
+      }
+    },
+    {
+      "id": "7",
+      "name": "Parse Media Placeholder",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1350, 500],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// TODO: reemplazar por Claude vision node\nreturn items.map(item => ({ json: { ...item.json, parsed: {\n  sport: 'football',\n  event: 'Inter vs Roma',\n  market_type: 'asian_handicap',\n  selection: 'Inter -0.5',\n  odds: 2.04,\n  stake: 2,\n  tipster_source: item.json.normalized?.source_channel_name || 'telegram',\n  source_timestamp: item.json.normalized?.source_timestamp,\n  parse_confidence: 0.70\n} } }));"
+      }
+    },
+    {
+      "id": "8",
+      "name": "Map Tips Row",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1570, 420],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "return items.map(item => {\n  const n = item.json.normalized || {};\n  const p = item.json.parsed || {};\n  return { json: {\n    source_type: 'telegram',\n    source_channel_id: n.source_channel_id,\n    source_channel_name: n.source_channel_name,\n    source_message_id: n.source_message_id,\n    source_timestamp: n.source_timestamp,\n    source_content_type: n.source_content_type,\n    source_raw_text: n.source_raw_text,\n    source_raw_payload: n.source_raw_payload,\n    source_content_hash: n.source_content_hash,\n    sport: p.sport || null,\n    event: p.event || null,\n    market_type: p.market_type || null,\n    selection: p.selection || null,\n    odds: p.odds || null,\n    stake: p.stake || null,\n    bookmaker: p.bookmaker || null,\n    parse_confidence: p.parse_confidence || null,\n    parser_model: 'placeholder',\n    parser_version: 'v1',\n    status: 'pending'\n  }};\n});"
+      }
+    },
+    {
+      "id": "9",
+      "name": "Supabase Insert Placeholder",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1780, 420],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// TODO: reemplazar por inserción real en Supabase\nreturn items.map(item => ({ json: { ok: true, status: 'pending', tip_payload: item.json } }));"
+      }
+    },
+    {
+      "id": "10",
+      "name": "Respond Duplicate",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [1120, 180],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { ok: true, status: 'duplicate' } }}",
+        "options": {"responseCode": 200}
+      }
+    },
+    {
+      "id": "11",
+      "name": "Respond Success",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [1980, 420],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { ok: true, status: 'pending' } }}",
+        "options": {"responseCode": 200}
+      }
+    }
+  ],
+  "connections": {
+    "Webhook In": {"main": [[{"node": "Normalize Input", "type": "main", "index": 0}]]},
+    "Normalize Input": {"main": [[{"node": "Dedupe Placeholder", "type": "main", "index": 0}]]},
+    "Dedupe Placeholder": {"main": [[{"node": "Is Duplicate?", "type": "main", "index": 0}]]},
+    "Is Duplicate?": {
+      "main": [
+        [{"node": "Respond Duplicate", "type": "main", "index": 0}],
+        [{"node": "Route Parser", "type": "main", "index": 0}]
+      ]
+    },
+    "Route Parser": {
+      "main": [
+        [{"node": "Parse Text Placeholder", "type": "main", "index": 0}],
+        [{"node": "Parse Media Placeholder", "type": "main", "index": 0}],
+        [{"node": "Parse Text Placeholder", "type": "main", "index": 0}]
+      ]
+    },
+    "Parse Text Placeholder": {"main": [[{"node": "Map Tips Row", "type": "main", "index": 0}]]},
+    "Parse Media Placeholder": {"main": [[{"node": "Map Tips Row", "type": "main", "index": 0}]]},
+    "Map Tips Row": {"main": [[{"node": "Supabase Insert Placeholder", "type": "main", "index": 0}]]},
+    "Supabase Insert Placeholder": {"main": [[{"node": "Respond Success", "type": "main", "index": 0}]]}
+  }
+}
