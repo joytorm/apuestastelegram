@@ -1,12 +1,12 @@
 {
   "project": "apuestastelegram",
-  "updatedAt": "2026-03-14T09:18:00Z",
+  "updatedAt": "2026-03-14T09:22:00Z",
   "status": "active",
   "tasks": [
     {
       "id": "AT-001",
       "title": "Definir alcance cerrado del MVP",
-      "status": "todo",
+      "status": "done",
       "priority": "high",
       "owner": "gloria"
     },
