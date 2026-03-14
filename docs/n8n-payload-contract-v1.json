@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://apuestastelegram.local/schemas/n8n-payload-contract-v1.json",
+  "title": "Hydrogram Payload -> n8n Parse/Store v1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["event", "message", "chat"],
+  "properties": {
+    "event": {
+      "type": "string",
+      "const": "telegram_channel_message"
+    },
+    "version": {
+      "type": ["integer", "string"]
+    },
+    "observed_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "message": {
+      "type": "object",
+      "required": ["id", "date_utc", "text", "has_media"],
+      "properties": {
+        "id": { "type": ["integer", "string"] },
+        "date_utc": { "type": ["string", "null"], "format": "date-time" },
+        "text": { "type": "string" },
+        "has_media": { "type": "boolean" },
+        "media_type": { "type": ["string", "null"] },
+        "views": { "type": ["integer", "null"] },
+        "forwards": { "type": ["integer", "null"] }
+      },
+      "additionalProperties": true
+    },
+    "chat": {
+      "type": "object",
+      "required": ["id"],
+      "properties": {
+        "id": { "type": ["integer", "string"] },
+        "title": { "type": ["string", "null"] },
+        "username": { "type": ["string", "null"] },
+        "type": { "type": ["string", "null"] }
+      },
+      "additionalProperties": true
+    }
+  }
+}

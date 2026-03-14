@@ -1,6 +1,6 @@
 {
   "project": "apuestastelegram",
-  "updatedAt": "2026-03-14T09:30:00Z",
+  "updatedAt": "2026-03-14T10:22:00Z",
   "status": "active",
   "tasks": [
     {
@@ -13,9 +13,11 @@
     {
       "id": "AT-002",
       "title": "Montar ingesta Telegram con Hydrogram",
-      "status": "in_progress",
+      "status": "blocked",
       "priority": "high",
-      "owner": "gloria"
+      "owner": "gloria",
+      "blocked_reason": "Falta completar credenciales/env en Hetzner (TG_API_ID, TG_API_HASH, ALLOWED_CHANNELS) para arrancar contenedor",
+      "next_action": "Mariscal rellena /opt/apuestastelegram/deploy/hydrogram/.env y avisar para levantar docker compose"
     },
     {
       "id": "AT-003",
@@ -27,9 +29,10 @@
     {
       "id": "AT-004",
       "title": "Implementar workflow n8n Parse -> Store",
-      "status": "todo",
+      "status": "in_progress",
       "priority": "high",
-      "owner": "gloria"
+      "owner": "gloria",
+      "notes": "Diseño y contrato v1 documentados; pendiente implementación directa en n8n"
     },
     {
       "id": "AT-005",
