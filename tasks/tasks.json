@@ -1,6 +1,6 @@
 {
   "project": "apuestastelegram",
-  "updatedAt": "2026-03-14T11:13:00Z",
+  "updatedAt": "2026-03-14T14:43:00Z",
   "status": "active",
   "tasks": [
     {
@@ -48,6 +48,14 @@
       "priority": "high",
       "owner": "gloria",
       "notes": "Taskmaster en tasks/taskmaster.frontend.json; deploy Cloudflare Pages hecho, custom domain en verificación"
+    },
+    {
+      "id": "AT-007",
+      "title": "Instalar backend base desde boilerplate-dashboard",
+      "status": "done",
+      "priority": "high",
+      "owner": "gloria",
+      "notes": "Copiado en /backend desde ~/Projects/entrelanzados/boilerplate-dashboard (sin .git, sin node_modules, sin .env.local, sin .next)"
     }
   ]
 }
