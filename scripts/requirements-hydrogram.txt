@@ -1,0 +1,2 @@
+hydrogram>=0.1.4
+TgCrypto>=1.2.5

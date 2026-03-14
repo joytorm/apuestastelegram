@@ -1,0 +1,13 @@
+services:
+  hydrogram-listener:
+    build:
+      context: ../..
+      dockerfile: deploy/hydrogram/Dockerfile
+    container_name: apuestastelegram-hydrogram
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./data/sessions:/app/data/sessions
+      - ./logs:/app/logs
+    command: ["python", "/app/hydrogram_listener.py"]

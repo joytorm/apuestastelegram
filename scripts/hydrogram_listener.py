@@ -93,6 +93,7 @@ async def main() -> None:
     api_id = os.getenv("TG_API_ID", "").strip()
     api_hash = os.getenv("TG_API_HASH", "").strip()
     session_name = os.getenv("TG_SESSION_NAME", "hydrogram_mvp")
+    session_string = os.getenv("TG_SESSION_STRING", "").strip() or None
     allowed_channels = parse_allowed_channels(os.getenv("ALLOWED_CHANNELS"))
 
     random_delay_enabled = env_bool("RANDOM_DELAY_ENABLED", default=False)
@@ -108,7 +109,13 @@ async def main() -> None:
     if delay_min > delay_max:
         raise SystemExit("RANGO de delay inválido: RANDOM_DELAY_MIN > RANDOM_DELAY_MAX")
 
-    app = Client(name=session_name, api_id=int(api_id), api_hash=api_hash)
+    app = Client(
+        name=session_name,
+        api_id=int(api_id),
+        api_hash=api_hash,
+        session_string=session_string,
+        workdir=os.getenv("TG_WORKDIR", "./data/sessions"),
+    )
 
     @app.on_message(filters.channel)
     async def on_channel_message(_: Client, message: Any) -> None:
