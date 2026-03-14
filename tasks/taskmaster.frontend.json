@@ -1,0 +1,36 @@
+{
+  "epics": [
+    {
+      "id": "F-100",
+      "title": "Base SEO técnica",
+      "status": "in_progress",
+      "tasks": [
+        {"id": "F-101", "title": "Metadata global", "status": "done"},
+        {"id": "F-102", "title": "robots.ts", "status": "done"},
+        {"id": "F-103", "title": "sitemap.ts", "status": "done"},
+        {"id": "F-104", "title": "Canonical + lang", "status": "done"}
+      ]
+    },
+    {
+      "id": "F-200",
+      "title": "UX landing",
+      "status": "in_progress",
+      "tasks": [
+        {"id": "F-201", "title": "Hero", "status": "done", "subtasks": ["F-201.1","F-201.2"]},
+        {"id": "F-202", "title": "Pilares", "status": "done", "subtasks": ["F-202.1","F-202.2","F-202.3"]},
+        {"id": "F-203", "title": "Estado MVP", "status": "done"},
+        {"id": "F-204", "title": "CTA principal/secundaria", "status": "done", "subtasks": ["F-204.1","F-204.2"]}
+      ]
+    },
+    {
+      "id": "F-300",
+      "title": "Calidad y publicación",
+      "status": "todo",
+      "tasks": [
+        {"id": "F-301", "title": "Build local", "status": "todo"},
+        {"id": "F-302", "title": "Deploy Vercel", "status": "todo"},
+        {"id": "F-303", "title": "Dominio temporal", "status": "todo"}
+      ]
+    }
+  ]
+}

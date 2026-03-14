@@ -1,6 +1,6 @@
 {
   "project": "apuestastelegram",
-  "updatedAt": "2026-03-14T10:27:00Z",
+  "updatedAt": "2026-03-14T10:42:00Z",
   "status": "active",
   "tasks": [
     {
@@ -40,6 +40,14 @@
       "status": "todo",
       "priority": "medium",
       "owner": "gloria"
+    },
+    {
+      "id": "AT-006",
+      "title": "Frontend landing SEO+UX (Next.js)",
+      "status": "in_progress",
+      "priority": "high",
+      "owner": "gloria",
+      "notes": "Taskmaster en tasks/taskmaster.frontend.json"
     }
   ]
 }
