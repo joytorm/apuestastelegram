@@ -1,0 +1,42 @@
+{
+  "project": "apuestastelegram",
+  "updatedAt": "2026-03-14T09:18:00Z",
+  "status": "active",
+  "tasks": [
+    {
+      "id": "AT-001",
+      "title": "Definir alcance cerrado del MVP",
+      "status": "todo",
+      "priority": "high",
+      "owner": "gloria"
+    },
+    {
+      "id": "AT-002",
+      "title": "Montar ingesta Telegram con Hydrogram",
+      "status": "todo",
+      "priority": "high",
+      "owner": "gloria"
+    },
+    {
+      "id": "AT-003",
+      "title": "Crear esquema Supabase inicial",
+      "status": "todo",
+      "priority": "high",
+      "owner": "gloria"
+    },
+    {
+      "id": "AT-004",
+      "title": "Implementar workflow n8n Parse -> Store",
+      "status": "todo",
+      "priority": "high",
+      "owner": "gloria"
+    },
+    {
+      "id": "AT-005",
+      "title": "Dashboard admin para aprobar/rechazar tips",
+      "status": "todo",
+      "priority": "medium",
+      "owner": "gloria"
+    }
+  ]
+}
