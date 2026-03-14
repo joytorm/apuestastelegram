@@ -1,6 +1,6 @@
 {
   "project": "apuestastelegram",
-  "updatedAt": "2026-03-14T14:47:00Z",
+  "updatedAt": "2026-03-14T14:55:00Z",
   "status": "active",
   "tasks": [
     {
@@ -64,6 +64,14 @@
       "priority": "high",
       "owner": "gloria",
       "notes": "Rutas creadas: /api/health, /api/tips, /api/tipsters, /api/webhooks"
+    },
+    {
+      "id": "AT-009",
+      "title": "Conectar rutas backend a Supabase real",
+      "status": "in_progress",
+      "priority": "high",
+      "owner": "gloria",
+      "notes": "GET /api/tips y /api/tipsters + POST /api/webhooks ya conectadas. Pendiente completar env vars en deploy para build sin errores"
     }
   ]
 }
